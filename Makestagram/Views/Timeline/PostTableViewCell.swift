@@ -7,10 +7,23 @@
 //
 
 import UIKit
+import Bond
 
 class PostTableViewCell: UITableViewCell {
-   
+    
     @IBOutlet weak var postImageView: UIImageView!
+    
+    // property and property observer
+    var post: Post? {
+        didSet {
+            if let post = post {
+                // bind the image of the post to the 'postImage' view
+                post.image.bindTo(postImageView.bnd_image)
+                // whenever the value of left hand sid eof .bindTo changes
+                // the right hand side gets updated.
+            }
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()

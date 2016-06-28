@@ -8,7 +8,7 @@
 
 import Foundation
 import Parse
-
+import Bond
 
 // Custom Parse Class 
 // inherit PFObject and implement PFSubclassing protocol
@@ -18,7 +18,7 @@ class Post: PFObject, PFSubclassing {
     @NSManaged var imageFile: PFFile? // @ tells the compiler that we won't initilize it in init
     @NSManaged var user: PFUser?  // Parse takes care of this
     
-    var image: UIImage?
+    var image: Observable<UIImage?> = Observable(nil) // needs to be Observable
     var photoUploadTask: UIBackgroundTaskIdentifier?
     
     
@@ -43,14 +43,27 @@ class Post: PFObject, PFSubclassing {
         }
     }
     
+    // download post
+    func downloadImage() {
+        // if not downloaded yet, get it
+        if (image.value == nil) {
+            imageFile?.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
+                if let data = data {
+                    let image = UIImage(data: data, scale:1.0)!
+                    self.image.value = image
+                }
+            }
+        }
+    }
+    
     // uploadPost
     func uploadPost() {
         
-        if let image = image {
+        if let image = image.value {
             
             // guard is like iptional binding used to unwrap optionals
             // we watnt to execute some code when the variable doesn't exist
-            guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {return}
+            guard let imageData = UIImageJPEGRepresentation(image, 1.0) else {return}
             guard let imageFile = PFFile(name: "image.jpg", data: imageData) else {return}
             // if cant initialize then just exist method ^^
             
