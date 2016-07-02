@@ -8,37 +8,48 @@
 
 import UIKit
 import Parse
+import ConvenienceKit // get TimelineComponent
 
-class TimelineViewController: UIViewController {
+class TimelineViewController: UIViewController, TimelineComponentTarget {
+    
+    // MARK: Properties
+    
+    // Defines how many posts to load initially
+    let defaultRange = 0...4
+    // Defines how many additional posts to load once the bottom timeline is reached
+    let additionalRangeSize = 5
     
     // array of Posts
     var posts: [Post] = []
     
+    // Referance to UITableView
     @IBOutlet weak var tableView: UITableView!
+    // it won't be initilized until the proper selection is made by the user
+    var photoTakingHelper: PhotoTakingHelper?
     
-    // properties
-    var photoTakingHelper: PhotoTakingHelper? // it won't be initilized until the proper selection is made by the user
-
+    var timelineComponent: TimelineComponent<Post, TimelineViewController>!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        timelineComponent = TimelineComponent(target: self)
         // Do any additional setup after loading the view.
         self.tabBarController?.delegate = self
         
     }
     
+    // Loads certain portion of the timeline and call the completionBlock
+    func loadInRange(range: Range<Int>, completionBlock: ([Post]?) -> Void) {
+        ParseHelper.timelineRequestForCurrentUser(range) { (result: [PFObject]?, error: NSError?) -> Void in
+            let posts = result as? [Post] ?? []
+            completionBlock(posts)
+        }
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        ParseHelper.timelineRequestForCurrentUser {
-            // trailing code block/closure
-            (result: [PFObject]?, error: NSError?) -> Void in
-            
-            self.posts = result as? [Post] ?? []
-            self.tableView.reloadData()
-        }
+        timelineComponent.loadInitialIfRequired()
     }
 
     override func didReceiveMemoryWarning() {
@@ -92,8 +103,9 @@ extension TimelineViewController: UITabBarControllerDelegate {
 }
 
 extension TimelineViewController: UITableViewDataSource {
+    
     func tableView(tableView:UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
+        return timelineComponent.content.count
     }
     
     func tableView(tableView:UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -101,10 +113,18 @@ extension TimelineViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier("PostCell") as! PostTableViewCell
         
 //        cell.postImageView.image = posts[indexPath.row].image
-        let post = posts[indexPath.row]
+        let post = timelineComponent.content[indexPath.row]
         post.downloadImage()
+        post.fetchLikes()
         cell.post = post
         
         return cell
+    }
+}
+
+extension TimelineViewController: UITableViewDelegate {
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell,
+                   forRowAtIndexPath indexPath: NSIndexPath) {
+        timelineComponent.targetWillDisplayEntry(indexPath.row)
     }
 }

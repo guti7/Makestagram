@@ -21,6 +21,8 @@ class Post: PFObject, PFSubclassing {
     var image: Observable<UIImage?> = Observable(nil) // needs to be Observable
     var photoUploadTask: UIBackgroundTaskIdentifier?
     
+    var likes: Observable<[PFUser]?> = Observable(nil) // Bond
+    
     
     //MARK: PFSbubclassing Protocol
     
@@ -40,6 +42,51 @@ class Post: PFObject, PFSubclassing {
         dispatch_once(&onceToken) {
             // inform Parse about this subclass
             self.registerSubclass()
+        }
+    }
+    
+    /*
+    * Get the likes to this post (PFUsers)
+    */
+    func fetchLikes() { // why does this return if it doesn't declare a return value?
+        
+        if (likes.value != nil) { // already loaded
+            return
+        }
+        
+        ParseHelper.likesForPost(self, completionBlock: { (likes: [PFObject]?, error: NSError?) -> Void in
+            
+            let validLikes = likes?.filter { like in like[ParseHelper.ParseLikeFromUser] != nil } // remove the nil likes
+            
+            self.likes.value = validLikes?.map { like in let fromUser = like[ParseHelper.ParseLikeFromUser] as! PFUser
+                
+                return fromUser // current user who made the post
+            }
+        })
+    } // fetchLikes
+    
+    /*
+    * Returns whether the user is included in the likes array
+    */
+    func doesUserLikePost(user: PFUser) -> Bool {
+        if let likes = likes.value { // is not nil
+            return likes.contains(user)
+        } else {
+            return false
+        }
+    } // doesUserLikePost
+    
+    /*
+    * Toggle like or unlike post
+    */
+    func toggleLikePost(user: PFUser) {
+        if (doesUserLikePost(user)) {
+            // post is liked so unlike it
+            likes.value = likes.value?.filter { $0 != user } // remove user from likes list
+            ParseHelper.unlikePost(user, post: self)
+        } else { // post is not liked
+            likes.value?.append(user) // add user to likes array
+            ParseHelper.likePost(user, post: self) // update Post in parse
         }
     }
     
