@@ -86,6 +86,9 @@
                                                     <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
                                                     <state key="normal" image="heart"/>
                                                     <state key="selected" image="heart_selected"/>
+                                                    <connections>
+                                                        <action selector="likeButtonTapped:" destination="JBq-Yj-VYP" eventType="touchUpInside" id="NBr-07-VVp"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z4X-WG-jhE" userLabel="More Button">
                                                     <rect key="frame" x="8" y="407" width="44" height="44"/>
@@ -94,6 +97,9 @@
                                                         <constraint firstAttribute="width" constant="44" id="AIH-vW-KLI"/>
                                                     </constraints>
                                                     <state key="normal" image="more"/>
+                                                    <connections>
+                                                        <action selector="moreButtonTapped:" destination="JBq-Yj-VYP" eventType="touchUpInside" id="LbY-Ms-pzM"/>
+                                                    </connections>
                                                 </button>
                                                 <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" translatesAutoresizingMaskIntoConstraints="NO" id="bfv-LW-Yhd">
                                                     <rect key="frame" x="20" y="367" width="20" height="20"/>
@@ -128,12 +134,17 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="postImageView" destination="9cx-0D-xW9" id="1de-dS-d2p"/>
+                                            <outlet property="likeButton" destination="fSK-ul-4us" id="WNu-M0-5yo"/>
+                                            <outlet property="likesIconImageView" destination="bfv-LW-Yhd" id="Xzg-H6-EY1"/>
+                                            <outlet property="likesLabel" destination="jP9-WK-waq" id="Nb5-mL-L6c"/>
+                                            <outlet property="moreButton" destination="z4X-WG-jhE" id="nJ0-XN-ZSv"/>
+                                            <outlet property="postImageView" destination="9cx-0D-xW9" id="UEF-nr-IVI"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="vCy-WP-3kh" id="d1C-0M-1ym"/>
+                                    <outlet property="delegate" destination="vCy-WP-3kh" id="Qpf-O0-eqS"/>
                                 </connections>
                             </tableView>
                         </subviews>
