@@ -45,6 +45,9 @@
                                     <constraint firstAttribute="height" constant="44" id="aVh-he-jez"/>
                                 </constraints>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="DUo-AU-RvX" id="vgQ-FJ-3dF"/>
+                                </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GQR-mV-9eC">
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
@@ -94,6 +97,9 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="DUo-AU-RvX" id="IUl-6P-01B"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -110,6 +116,10 @@
                     <tabBarItem key="tabBarItem" title="" image="people" id="Caw-dz-IvO">
                         <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="searchBar" destination="BpI-U5-Z3R" id="gs1-XO-vsf"/>
+                        <outlet property="tableView" destination="GQR-mV-9eC" id="abp-PQ-6wC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wBW-dp-1hL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

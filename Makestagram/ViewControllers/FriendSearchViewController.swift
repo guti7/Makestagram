@@ -10,6 +10,11 @@ import UIKit
 
 class FriendSearchViewController: UIViewController {
     
+    // MARK: Properties
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
