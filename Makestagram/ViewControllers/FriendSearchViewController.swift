@@ -118,3 +118,75 @@ class FriendSearchViewController: UIViewController {
 
 // MARK: TableView Data Source
 
+extension FriendSearchViewController: UITableViewDataSource {
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.users?.count ?? 0
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("UserCell") as! FriendSearchTableViewCell
+        
+        let user = users![indexPath.row]
+        cell.user = user
+        
+        if let followingUsers = followingUsers {
+            // Check if this user is already following displayed user
+            // change button appearance based on result
+            cell.canFollow = !followingUsers.contains(user)
+        }
+        
+        cell.delegate = self
+        return cell
+    }
+}
+
+// MARK: Searchbar Delegate
+
+extension FriendSearchViewController: UISearchBarDelegate {
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+        state = .SearchMode
+    }
+    
+    func searchBarCancelButtonClicked(serachBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+        searchBar.setShowsCancelButton(false, animated: true)
+        state = .DefaultMode
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        ParseHelper.searchUsers(searchText, completionBlock:updateList)
+    }
+    
+    
+}
+
+// MARK: FriendSearchTableViewCell Delegate
+
+extension FriendSearchViewController: FriendSearchTableViewCellDelegate {
+    
+    func cell(cell: FriendSearchTableViewCell, didSelectFollowUser user: PFUser) {
+        ParseHelper.addFollowRelationshipFromUser(PFUser.currentUser()!, toUser: user)
+        // Update local cache
+        followingUsers?.append(user)
+    }
+    
+    func cell(cell: FriendSearchTableViewCell, didSelectUnfollowUser user: PFUser) {
+        
+        if let followingUsers = self.followingUsers {
+            ParseHelper.removeFollowRelationshipFromUser(PFUser.currentUser()!, toUser: user)
+            // Update local cache
+            self.followingUsers = followingUsers.filter( {$0 != user} )
+        }
+    }
+}
+
+
+
+
+
+
