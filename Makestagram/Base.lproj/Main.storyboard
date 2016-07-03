@@ -38,7 +38,74 @@
                     <view key="view" contentMode="scaleToFill" id="fJ8-cm-rZe">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="BpI-U5-Z3R">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="aVh-he-jez"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GQR-mV-9eC">
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCell" rowHeight="50" id="Bm4-wa-luj" customClass="FriendSearchTableViewCell" customModule="Makestagram" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bm4-wa-luj" id="FUk-2o-xOK">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="49"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yhw-Lo-yuf">
+                                                    <rect key="frame" x="20" y="14" width="472" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="Ryx-5o-fg4"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ev1-a8-6ns">
+                                                    <rect key="frame" x="556" y="3" width="44" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="44" id="348-Qc-csR"/>
+                                                        <constraint firstAttribute="height" constant="44" id="oNN-ic-eCx"/>
+                                                    </constraints>
+                                                    <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                                    <state key="normal" image="add"/>
+                                                    <state key="selected" image="check"/>
+                                                    <connections>
+                                                        <action selector="followButtonTapped:" destination="Bm4-wa-luj" eventType="touchUpInside" id="Fki-Dx-CP5"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Yhw-Lo-yuf" firstAttribute="centerY" secondItem="FUk-2o-xOK" secondAttribute="centerY" id="71J-fG-3Lw"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Yhw-Lo-yuf" secondAttribute="trailing" constant="100" id="7Dl-gI-e5i"/>
+                                                <constraint firstItem="Yhw-Lo-yuf" firstAttribute="leading" secondItem="FUk-2o-xOK" secondAttribute="leadingMargin" constant="12" id="GN1-py-Rel"/>
+                                                <constraint firstItem="Ev1-a8-6ns" firstAttribute="centerY" secondItem="FUk-2o-xOK" secondAttribute="centerY" id="oca-aj-QQO"/>
+                                                <constraint firstItem="Ev1-a8-6ns" firstAttribute="trailing" secondItem="FUk-2o-xOK" secondAttribute="trailingMargin" constant="8" id="yrD-Se-pQG"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="followButton" destination="Ev1-a8-6ns" id="G9f-Bc-cPQ"/>
+                                            <outlet property="usernameLabel" destination="Yhw-Lo-yuf" id="Avt-4f-bsU"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="GQR-mV-9eC" firstAttribute="top" secondItem="BpI-U5-Z3R" secondAttribute="bottom" id="7RW-Zz-E4D"/>
+                            <constraint firstItem="BpI-U5-Z3R" firstAttribute="top" secondItem="gLL-fx-Lf2" secondAttribute="bottom" id="NBg-8K-o4v"/>
+                            <constraint firstItem="BpI-U5-Z3R" firstAttribute="leading" secondItem="fJ8-cm-rZe" secondAttribute="leading" id="NT9-Ga-NTz"/>
+                            <constraint firstItem="aQA-iU-7ku" firstAttribute="top" secondItem="GQR-mV-9eC" secondAttribute="bottom" id="QO3-ZD-64L"/>
+                            <constraint firstAttribute="trailing" secondItem="GQR-mV-9eC" secondAttribute="trailing" id="WJ0-Hc-VJS"/>
+                            <constraint firstItem="GQR-mV-9eC" firstAttribute="leading" secondItem="fJ8-cm-rZe" secondAttribute="leading" id="sRJ-oc-7cl"/>
+                            <constraint firstAttribute="trailing" secondItem="BpI-U5-Z3R" secondAttribute="trailing" id="uMs-2k-VUK"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="people" id="Caw-dz-IvO">
                         <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
@@ -188,7 +255,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="add" width="42" height="42"/>
         <image name="camera" width="40" height="30"/>
+        <image name="check" width="42" height="42"/>
         <image name="heart" width="72" height="68"/>
         <image name="heart_selected" width="72" height="68"/>
         <image name="home" width="38" height="36"/>
