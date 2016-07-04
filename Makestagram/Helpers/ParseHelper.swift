@@ -141,7 +141,7 @@ class ParseHelper {
         likeObject[ParseLikeToPost] = post
         
         // save the object to Parse server asynchronously
-        likeObject.saveInBackgroundWithBlock(nil)
+        likeObject.saveInBackgroundWithBlock(ErrorHandling.errorHandlingCallback)
     } // likePost()
     
     static func unlikePost(user: PFUser, post: Post) {
@@ -151,9 +151,15 @@ class ParseHelper {
         // query should result in one post by this line
         
         query.findObjectsInBackgroundWithBlock { (results: [PFObject]?, error: NSError?) -> Void in
+            
+            if let error = error {
+                ErrorHandling.defaultErrorHandler(error)
+            }
+            
+            // FIXME: Which on is it? 'as? [PFObject]' part 2 sect 4 E.H.Callback
             if let results = results {
                 for like in results { // like is PFObject
-                    like.deleteInBackgroundWithBlock(nil)
+                    like.deleteInBackgroundWithBlock(ErrorHandling.errorHandlingCallback)
                 }
             }
         }
@@ -184,7 +190,7 @@ class ParseHelper {
         followObject.setObject(user, forKey: ParseFollowFromUser)
         followObject.setObject(toUser, forKey: ParseFollowToUser)
         
-        followObject.saveInBackgroundWithBlock(nil)
+        followObject.saveInBackgroundWithBlock(ErrorHandling.errorHandlingCallback)
     }
     
     /**
@@ -199,11 +205,14 @@ class ParseHelper {
         
         query.findObjectsInBackgroundWithBlock {
             (results: [PFObject]?, error: NSError?) -> Void in
+            if let error = error {
+                ErrorHandling.defaultErrorHandler(error)
+            }
             
             let results = results ?? []
             
             for follow in results {
-                follow.deleteInBackgroundWithBlock(nil)
+                follow.deleteInBackgroundWithBlock(ErrorHandling.errorHandlingCallback)
             }
         }
     } // removeFollowRelationshipFromUser()
