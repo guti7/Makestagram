@@ -41,8 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("No logged in user :(")
     }
     
-    // change the default ACL(Access Control Lists) lists of user that have 
-    // certain rights to read, modigy, or delete certain objects.
+    // change the default ACL(Access Control Lists) lists of users that have
+    // certain rights to read, modify, or delete certain objects.
     let acl = PFACL()
     acl.publicReadAccess = true
     PFACL.setDefaultACL(acl, withAccessForCurrentUser: true)
