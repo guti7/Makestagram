@@ -14,8 +14,9 @@ import ParseUI
 typealias ParseLoginHelperCallback = (PFUser?, NSError?) -> Void
 
 /** 
-  This class implements the 'PFLogInViewControllerDelegate' protocol. After a successfull login
-  it will call the callback function and provide a 'PFUser' object.
+  This class implements the 'PFLogInViewControllerDelegate' protocol. 
+  After a successfull login it will call the callback function and 
+  provide a 'PFUser' object.
 */
 class ParseLoginHelper : NSObject {
   static let errorDomain = "com.makeschool.parseloginhelpererrordomain"
