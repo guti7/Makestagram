@@ -80,7 +80,7 @@ class ParseHelper {
         let query = PFUser.query()! // Parse adds this functionality to PFUser class
         // exclude the current user
         query.whereKey(ParseUserUsername, notEqualTo: PFUser.currentUser()!.username!)
-        // FIXME: Order AsceNding case insesitive
+        // FIXME: Order Ascending case insensitive
         query.orderByAscending(ParseHelper.ParseUserUsername)
         query.limit = 20
         query.findObjectsInBackgroundWithBlock(completionBlock)
