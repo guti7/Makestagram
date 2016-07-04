@@ -68,7 +68,7 @@ class ParseHelper {
         
     } // timelineRequestFCU()
     
-    // MARK: Users
+    // MARK: - Users
     
     /**
      Fetch all users, except the one that's currently signed in.
@@ -80,7 +80,8 @@ class ParseHelper {
         let query = PFUser.query()! // Parse adds this functionality to PFUser class
         // exclude the current user
         query.whereKey(ParseUserUsername, notEqualTo: PFUser.currentUser()!.username!)
-        query.orderByAscending(ParseUserUsername)
+        // FIXME: Order AsceNding case insesitive
+        query.orderByAscending(ParseHelper.ParseUserUsername)
         query.limit = 20
         query.findObjectsInBackgroundWithBlock(completionBlock)
         
@@ -101,9 +102,9 @@ class ParseHelper {
         */
         
         let query = PFUser.query()!
-        query.whereKey(ParseUserUsername, matchesRegex: searchText, modifiers: "i")
+        query.whereKey(ParseHelper.ParseUserUsername, matchesRegex: searchText, modifiers: "i")
         query.whereKey(ParseUserUsername, notEqualTo: PFUser.currentUser()!.username!)
-        query.orderByAscending(ParseUserUsername)
+        query.orderByAscending(ParseHelper.ParseUserUsername)
         query.limit = 20
         query.findObjectsInBackgroundWithBlock(completionBlock)
         return query
