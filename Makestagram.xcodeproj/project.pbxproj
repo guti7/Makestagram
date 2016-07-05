@@ -41,6 +41,7 @@
 		CC7B10F01D2108170096CFAA /* PhotoTakingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7B10EF1D2108170096CFAA /* PhotoTakingHelper.swift */; };
 		CC7B10F31D21A21E0096CFAA /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7B10F21D21A21E0096CFAA /* Post.swift */; };
 		CC7B10F81D21F2DD0096CFAA /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7B10F71D21F2DD0096CFAA /* PostTableViewCell.swift */; };
+		CCD5B4EB1D2C1667004F4A29 /* PostSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD5B4EA1D2C1667004F4A29 /* PostSectionHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		CC7B10EF1D2108170096CFAA /* PhotoTakingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTakingHelper.swift; sourceTree = "<group>"; };
 		CC7B10F21D21A21E0096CFAA /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		CC7B10F71D21F2DD0096CFAA /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		CCD5B4EA1D2C1667004F4A29 /* PostSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostSectionHeaderView.swift; sourceTree = "<group>"; };
 		E90EF6307DCCDD1C8928B547 /* Pods-Makestagram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Makestagram.release.xcconfig"; path = "Pods/Target Support Files/Pods-Makestagram/Pods-Makestagram.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -302,6 +304,7 @@
 			isa = PBXGroup;
 			children = (
 				CC7B10F71D21F2DD0096CFAA /* PostTableViewCell.swift */,
+				CCD5B4EA1D2C1667004F4A29 /* PostSectionHeaderView.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -537,6 +540,7 @@
 				CC7B10EA1D20FD550096CFAA /* PhotoViewController.swift in Sources */,
 				CC1D3D9B1D28D7730019648A /* FriendSearchTableViewCell.swift in Sources */,
 				62C8C1E61B06BD6500DC3EA7 /* AppDelegate.swift in Sources */,
+				CCD5B4EB1D2C1667004F4A29 /* PostSectionHeaderView.swift in Sources */,
 				627718971B0A581700AF5C6E /* FilterViewController.swift in Sources */,
 				CC39CD111D22DD2D009D856C /* ParseHelper.swift in Sources */,
 				CC7B10F81D21F2DD0096CFAA /* PostTableViewCell.swift in Sources */,
