@@ -105,7 +105,12 @@ extension TimelineViewController: UITabBarControllerDelegate {
 extension TimelineViewController: UITableViewDataSource {
     
     func tableView(tableView:UITableView, numberOfRowsInSection section: Int) -> Int {
-        return timelineComponent.content.count
+        return 1
+    }
+    
+    // TODO: Added this without being sure where it goes.
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return self.timelineComponent.content.count
     }
     
     func tableView(tableView:UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -113,7 +118,7 @@ extension TimelineViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier("PostCell") as! PostTableViewCell
         
 //        cell.postImageView.image = posts[indexPath.row].image
-        let post = timelineComponent.content[indexPath.row]
+        let post = timelineComponent.content[indexPath.section]
         post.downloadImage()
         post.fetchLikes()
         cell.post = post
@@ -125,6 +130,19 @@ extension TimelineViewController: UITableViewDataSource {
 extension TimelineViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell,
                    forRowAtIndexPath indexPath: NSIndexPath) {
-        timelineComponent.targetWillDisplayEntry(indexPath.row)
+        timelineComponent.targetWillDisplayEntry(indexPath.section)
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerCell = tableView.dequeueReusableCellWithIdentifier("PostHeader") as! PostSectionHeaderView
+        
+        let post = self.timelineComponent.content[section]
+        headerCell.post = post
+        
+        return headerCell
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
     }
 }

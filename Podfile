@@ -8,6 +8,7 @@ target 'Makestagram' do
   # Pods for Makestagram
   pod 'Bond', '4.0.0'
   pod "ConvenienceKit"
+  pod ‘DateTools’
   pod 'Parse'
   pod 'ParseFacebookUtilsV4'
   pod 'ParseUI'
